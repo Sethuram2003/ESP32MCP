@@ -11,13 +11,11 @@ static const char *TAG = "MCP_SERVER_APP";
 static esp_mcp_t *s_mcp = NULL;
 static esp_mcp_mgr_handle_t s_mcp_handle = 0;
 
-
 static esp_mcp_value_t greeting_tool_callback(const esp_mcp_property_list_t *properties)
 {
     (void)properties;
     return esp_mcp_value_create_string("Hello! This is your ESP32 MCP server.");
 }
-
 
 esp_err_t mcp_server_app_init(void)
 {
@@ -28,10 +26,10 @@ esp_err_t mcp_server_app_init(void)
         "Returns a friendly greeting (ignores parameters)",
         greeting_tool_callback
     );
-
     ESP_ERROR_CHECK(esp_mcp_add_tool(s_mcp, tool));
 
     esp_mcp_mgr_config_t config = {0};
+    config.transport = esp_mcp_transport_http_server;  // <-- THIS WAS MISSING!
     config.instance = s_mcp;
 
     ESP_ERROR_CHECK(esp_mcp_mgr_init(config, &s_mcp_handle));

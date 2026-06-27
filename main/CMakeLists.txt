@@ -1,2 +1,8 @@
-idf_component_register(SRCS "app_main.c" "components/McpServer/mcp_server.c" "components/Wifi/wifi_station.c"
-                    INCLUDE_DIRS "." REQUIRES mcp-c-sdk nvs_flash esp_wifi esp_event esp_netif)
+idf_component_register(
+    SRCS "app_main.c"
+    INCLUDE_DIRS "."
+    REQUIRES 
+        wifi_station
+        mcp_server
+        nvs_flash
+)
