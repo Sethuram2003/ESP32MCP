@@ -15,6 +15,9 @@ static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
+#define configWIFI_SSID      "myssid"
+#define configWIFI_PASSWORD  "mypassword"
+
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data)
 {
@@ -56,8 +59,8 @@ esp_err_t wifi_init_sta(void)
 
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = "myssid",
-            .password = "mypassword",
+            .ssid = configWIFI_SSID,
+            .password = configWIFI_PASSWORD,
             .threshold.authmode = WIFI_AUTH_WPA2_PSK,
         },
     };
