@@ -4,8 +4,8 @@
 #include "esp_log.h"
 #include "nvs_flash.h"
 
-#include "wifi_station.h"
-#include "mcp_server.h"
+#include "components/Wifi/wifi_station.h"
+#include "components/McpServer/mcp_server.h"
 
 static const char *TAG = "MAIN";
 
