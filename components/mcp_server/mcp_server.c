@@ -29,8 +29,16 @@ esp_err_t mcp_server_app_init(void)
     ESP_ERROR_CHECK(esp_mcp_add_tool(s_mcp, tool));
 
     esp_mcp_mgr_config_t config = {0};
-    config.transport = esp_mcp_transport_http_server;  // <-- THIS WAS MISSING!
+    config.transport = esp_mcp_transport_http_server;
     config.instance = s_mcp;
+    
+    void *transport_config = NULL;
+    esp_err_t err = esp_mcp_transport_http_server.create_config(NULL, &transport_config);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to create HTTP server transport config: %s", esp_err_to_name(err));
+        return err;
+    }
+    config.config = transport_config;
 
     ESP_ERROR_CHECK(esp_mcp_mgr_init(config, &s_mcp_handle));
 
